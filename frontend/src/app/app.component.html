@@ -1,0 +1,71 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true">
+
+    <mat-toolbar color="accent">Menu</mat-toolbar>
+    <mat-nav-list *ngIf = "isNone()">
+      <a mat-list-item routerLink="/login">Login</a>
+      <a mat-list-item routerLink="/patient/register">Register</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="isPatient()">
+      <a mat-list-item routerLink="/patient/profile">Profile</a>
+      <a mat-list-item routerLink="/patient/medicalRecord">Medical record</a>
+      <a mat-list-item routerLink="/patient/medicalHistory">Medical history</a>
+      <a mat-list-item routerLink="/patient/clinics">Clinics</a>
+      <a mat-list-item (click)="onLogout()">Logout</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="isDoctor()">
+      <a mat-list-item routerLink="/doctor/list_of_patients">List of patients</a>
+      <a mat-list-item routerLink="/doctor/exemination">Exemination</a>
+      <a mat-list-item routerLink="/doctor/work_calendar">Work calendar</a>
+      <a mat-list-item routerLink="/doctor/requests">Requests</a>
+      <a mat-list-item routerLink="/doctor/operations">Operations</a>
+      <a mat-list-item routerLink="/doctor/profile">Profile</a>
+      <a mat-list-item routerLink="/doctor/VacationRequest">VacationRequest</a>
+      <a mat-list-item routerLink="/doctor/MedicalRecord">MedicalRecords</a>
+      <a mat-list-item (click)="onLogout()">Logout</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="isClinicAdmin()">
+      <a mat-list-item routerLink="/admin_clinic/profile">Profile</a>
+      <a mat-list-item routerLink="/admin_clinic/Rooms">Rooms</a>
+      <a mat-list-item (click)="onLogout()">Logout</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="isNurse()">
+      <a mat-list-item routerLink="/nurse/profile">Profile</a>
+      <a mat-list-item routerLink="/nurse/ListOfPatient">List Of Patients</a>
+      <a mat-list-item routerLink="/nurse/WorkCalendar">WorkCalendar</a>
+      <a mat-list-item routerLink="/nurse/VacationRequest">Vacation requests</a>
+      <a mat-list-item (click)="onLogout()">Logout</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="isClinicalCentreAdmin()">
+      <a mat-list-item routerLink="/clinical-centre-admin/profile">Profile</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/addClinic">Add Clinic</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/addAdmins">Add Administrator</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/requests">Requests</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/VacationRequests">Vacation Requests</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/addDiagnose">Add Diagnose</a>
+      <a mat-list-item routerLink="/clinical-centre-admin/addMedicament">Add Medicament</a>
+
+
+
+
+      <a mat-list-item (click)="onLogout()">Logout</a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Clinical Centre</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
